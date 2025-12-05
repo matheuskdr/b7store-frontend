@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { HeaderIcon } from "./header-icon";
+import Link from "next/link";
 
 export function Header() {
     return (
@@ -19,7 +21,28 @@ export function Header() {
                             height={40}
                         />
                     </div>
-                    <div className="">Botões</div>
+                    <div className="">
+                        <div className="flex gap-4">
+                            <Link href={"/my-orders"}>
+                                <HeaderIcon
+                                    src={"/assets/ui/user-line.png"}
+                                    alt={"Perfil"}
+                                />
+                            </Link>
+                            <Link href={"/cart"}>
+                                <HeaderIcon
+                                    src={"/assets/ui/shopping-bag-4-line.png"}
+                                    alt={"Carrinho"}
+                                />
+                            </Link>
+                            <div className="md:hidden">
+                                <HeaderIcon
+                                    src={"/assets/ui/menu-line.png"}
+                                    alt={"Menu"}
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
