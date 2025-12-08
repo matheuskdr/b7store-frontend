@@ -25,8 +25,8 @@ export function Header() {
                 acima de R$ 199,00. <strong>APROVEITA!</strong>
             </div>
             <div className="w-full max-w-6xl mx-auto p-6">
-                <div className="flex items-center justify-between">
-                    <div className="">
+                <div className="flex items-center">
+                    <div className="w-32">
                         <Link href={"/"}>
                             <Image
                                 src="/assets/ui/logo-black.png"
@@ -35,6 +35,27 @@ export function Header() {
                                 height={40}
                             />
                         </Link>
+                    </div>
+                    <div className="flex-1">
+                        <div className="w-full hidden md:flex items-center px-6 gap-6">
+                            <div className="flex-1">
+                                <ul className="flex gap-10 font-medium text-gray-500">
+                                    {menu.map((item) => (
+                                        <li key={item.label}>
+                                            <Link
+                                                key={item.label}
+                                                href={item.href}
+                                            >
+                                                {item.label}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className="w-80">
+                                <HeaderSearch />
+                            </div>
+                        </div>
                     </div>
                     <div className="">
                         <div className="flex gap-4">
@@ -66,7 +87,7 @@ export function Header() {
                 </div>
             </div>
             {menuOpened && (
-                <div className="md:hidden">
+                <div className="md:hidden pb-6">
                     {menu.map((item) => (
                         <Link key={item.label} href={item.href}>
                             <div className="p-6 border-b border-gray-200 flex items-center justify-between">
@@ -84,7 +105,7 @@ export function Header() {
                     ))}
                 </div>
             )}
-            <div className="p-6 md:hidden">
+            <div className="p-6 pt-0 md:hidden">
                 <HeaderSearch />
             </div>
         </header>
