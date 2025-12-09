@@ -1,14 +1,14 @@
 import { data } from "@/data";
 import { ProductList } from "../product-list";
 
-export const MostViewedProducts = async () => {
+export const MostSoldProducts = async () => {
     return (
         <div className="mt-10">
-            <h2 className="text-2xl text-center md:text-left">
-                Produtos mais vistos
+            <h2 className="text-2xl text-center md:text-left ">
+                Produtos mais vendidos
             </h2>
             <p className="text-gray-500 text-center md:text-left">
-                Capeões de visualização da nossa loja.
+                Capeões de vendas da nossa loja.
             </p>
 
             <div className="mt-9">
