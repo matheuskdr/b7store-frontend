@@ -1,5 +1,6 @@
 "use client";
 
+import { useCartStore } from "@/store/cart";
 import { ProductComplete } from "@/types/product";
 import Image from "next/image";
 
@@ -7,6 +8,8 @@ type Props = {
     product: ProductComplete;
 };
 export const ProductDatails = ({ product }: Props) => {
+    const cartStore = useCartStore((state) => state);
+
     const addToCart = async () => {};
 
     return (
@@ -19,6 +22,7 @@ export const ProductDatails = ({ product }: Props) => {
             <div className="text-sm text-gray-500 mb-6">
                 Em até 12x no cartão
             </div>
+            <div>CARRINHO: {cartStore.cart.length}</div>
             <div className="flex gap-4">
                 <button
                     onClick={addToCart}
