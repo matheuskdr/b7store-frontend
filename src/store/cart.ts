@@ -6,14 +6,14 @@ type CartState = {
     shippingZipCode: string;
     shippingCost: number;
     shippingDays: number;
-    selectedAdressId: string | null;
+    selectedAdressId: number | null;
     addItem: (cartItem: CartItem) => void;
     removeItem: (productId: string | number) => void;
     updateQuantity: (productId: string | number, quantity: number) => void;
     setShippingZipcode: (zipCode: string) => void;
     setShippingCost: (cost: number) => void;
     setShippingDays: (days: number) => void;
-    setSelectedAdressId: (id: string | null) => void;
+    setSelectedAdressId: (id: number | null) => void;
     clearCart: () => void;
     clearShipping: () => void;
 };
