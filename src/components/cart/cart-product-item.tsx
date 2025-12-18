@@ -1,3 +1,5 @@
+import { setCartState } from "@/actions/set-cart-state";
+import { useCartStore } from "@/store/cart";
 import { CartListItem } from "@/types/cart-list-item";
 import Image from "next/image";
 
@@ -6,6 +8,30 @@ type Props = {
 };
 
 export const CartProductItem = ({ item }: Props) => {
+    const cartStore = useCartStore((state) => state);
+
+    const updateCookie = async () => {
+        const updatedCart = useCartStore.getState().cart;
+        await setCartState(updatedCart);
+    };
+
+    const handleMinus = async () => {
+        if (item.quantity > 1) {
+            cartStore.updateQuantity(item.product.id, item.quantity - 1);
+            await updateCookie();
+        } else {
+            await handleRemove();
+        }
+    };
+    const handlePlus = async () => {
+        cartStore.updateQuantity(item.product.id, item.quantity + 1);
+        await updateCookie();
+    };
+    const handleRemove = async () => {
+        cartStore.removeItem(item.product.id);
+        await updateCookie();
+    };
+
     return (
         <div className="flex items-center p-6 gap-4 md:gap-8 border-0 md:border-b border-gray-200">
             <div className="border border-gray-200 p-1">
@@ -19,19 +45,40 @@ export const CartProductItem = ({ item }: Props) => {
             </div>
             <div className="flex-1 flex flex-col md:flex-row justify-between md:items-center">
                 <div className="">
-                    <div className="text-sm ">{item.product.label}</div>
-                    <div className="hidden md:block text-xs text-gray-500 mt-2">
+                    <div className="text-sm mb-2">{item.product.label}</div>
+                    <div className="hidden md:block text-xs text-gray-500">
                         COD: {item.product.id}
                     </div>
                 </div>
-                <div className="">{item.quantity}</div>
+                <div className="">
+                    <div className="w-30 flex text-gray-500 border border-gray-200 rounded-sm text-center">
+                        <div
+                            onClick={handleMinus}
+                            className="cursor-pointer text-2xl size-10 flex justify-center items-center"
+                        >
+                            -
+                        </div>
+                        <div className="size-10 text-lg border-x border-gray-200 flex justify-center items-center">
+                            {item.quantity}
+                        </div>
+                        <div
+                            onClick={handlePlus}
+                            className="cursor-pointer text-2xl size-10 flex justify-center items-center"
+                        >
+                            +
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="w-24 md:w-40 flex flex-col md:flex-row justify-between items-end md:items-center">
                 <div className="text-lg text-blue-600">
                     R$ {item.product.price.toFixed(2)}
                 </div>
                 <div className="">
-                    <div className="cursor-pointer size-12 border border-gray-200 flex justify-center items-center rounded-sm">
+                    <div
+                        onClick={handleRemove}
+                        className="cursor-pointer size-12 border border-gray-200 flex justify-center items-center rounded-sm"
+                    >
                         <Image
                             src={"/assets/ui/trash.png"}
                             alt=""
